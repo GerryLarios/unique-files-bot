@@ -2,14 +2,13 @@ import os
 import re
 from collections import namedtuple
 
-Container = namedtuple('Container', ['name', 'size', 'path', 'full_path', 'filetype'])
+Container = namedtuple("Container", ["name", "size", "path", "full_path", "filetype"])
 
 def init_container(doc):
-    full_path, filetype = os.path.splitext(doc)
-    path = os.path.dirname(full_path)
-    name = os.path.basename(full_path)
+    path, filetype = os.path.splitext(doc)
+    name = os.path.basename(path)
     size = os.path.getsize(doc)
-    return Container(name, size, path, full_path, filetype)
+    return Container(name, size, path, doc, filetype)
 
 def is_pdf(filetype):
     return re.search(r'pdf|PDF', filetype)
